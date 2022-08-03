@@ -5,6 +5,20 @@
   <a href='{{url_for("views.order_history")}}'  class='btn btn-outline-dark float-right' >See Orders</a>
 
   <h1 align="center"> Wellcome to UAB Bookstore Manager Page</h1>
+
+
+  <h4 align="center">Notes</h4>
+  <ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <li class="list-group-item">
+      {{ note.data }}
+      <button type="button" class="close" onClick="deleteNote({{ note.id }})">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+
   <p>Add books to the store</p>
   <form method="post" action="{{url_for('auth.add_book')}}" class='text-center' >
     <label for="bname"></label><input type="text" name ="bname" placeholder="Book Title">

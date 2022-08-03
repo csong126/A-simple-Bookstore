@@ -3,7 +3,7 @@ from curses.ascii import isblank
 from posixpath import basename
 from unicodedata import category
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import Cart, User,Book, Order
+from .models import Cart, User,Book, Order, Note
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -174,6 +174,12 @@ def checkout(total):
                 db.session.commit()
         Cart.query.filter_by(user_id=current_user.id).delete()
         db.session.commit()
+        # send a message to managers
+        managers = User.query.filter_by(role="manager").all()
+        for manager in managers:
+            note = Note(order_number= order_numb,user_id=manager.id)
+            db.session.add(note)
+
         flash('Order completed','success')
         return render_template("thankyou.html",user=current_user)
     return render_template("checkout.html", user=current_user)
