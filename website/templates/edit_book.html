@@ -1,0 +1,25 @@
+{% extends "base.html" %} {% block title %}Update Book record{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+    <h4 class='text-center text-muted mb-3'>Update book information</h4>
+
+      <h3>Update Book infromation</h3><hr>
+      <form method='post' action='{{url_for("auth.edit_book",ISBN=datas.ISBN)}}'>
+        <p><b>Title:</b>&nbsp; {{datas.bname}}</p>
+        <p><b>Authors:</b>&nbsp; {{datas.authors}}</p>
+        <p><b>Category:</b>&nbsp; {{datas.category}}</p>
+        <p><b>ISBN:</b>&nbsp; {{datas.ISBN}}</p>
+        <div class='form-group'>
+            <p><b>price</b>
+            <input type='float' name='price' required class='form-control' value='{{datas.price}}'></p>
+ 
+            <p><b>Quntity</b>
+            <input type='Integer' name='qty' required class='form-control' value='{{datas.qty}}'></p>
+          </div>
+          <input type='submit' value='Submit' class='btn btn-primary'>
+      </form>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %}Checkout{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+  <h4 class='text-center text-muted mb-3'>Checkout</h4>
+
+  <div class='container'>
+      <h4>1. Shipping Address</h4><hr>
+      <form method="post" action="#" class='text-center' >
+        <label for="name"></label><input type="text" name ="name" placeholder="Full name">
+        <label for="address" ></label> <input type="text" name ="address" placeholder="Street address">
+        <label for="city" ></label> <input type="text" name ="city" placeholder="City">
+        <label for="zip" ></label> <input type="integer" name ="zip" placeholder="Zip code">
+      </form>
+  </div>
+
+  <div class='container'>
+      <h4>2. Payment Methods</h4><hr>
+      <h5>Biling address (if different from shipping address)</h5>
+      <form method="post" action="#" class='text-center' >
+        <label for="name"></label><input type="text" name ="name" placeholder="Full name">
+        <label for="address" ></label> <input type="text" name ="address" placeholder="Street address">
+        <label for="city" ></label> <input type="text" name ="city" placeholder="City">
+        <label for="zip" ></label> <input type="integer" name ="zip" placeholder="Zip code">
+      </form>
+      <h5>Credit card information</h5>
+      <form method="post" action="#" class='text-center' >
+        <label for="Card#"></label><input type="integer" name ="Card#" placeholder="Card number">
+        <label for="exp" ></label> <input type="integer" name ="exp" placeholder="Expiration (MMYY)">
+        <label for="CSC" ></label> <input type="integer" name ="csc" placeholder="sec code">
+      </form>
+  </div>
+
+
+  <h4>3. Review items</h4><hr>
+  <table class='table table-bordered'>
+      <thead>
+        <th>Book Title</Title></th>
+        <th>Authors</th>
+        <th>ISBN</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>qty</th>
+      </thead>
+      <tbody>
+        {% set t = namespace(sum = 0) %}
+        {% for book in user.cart %}
+          <tr>
+            <td>{{book.bname}}</td>
+            <td>{{book.authors}}</td>
+            <td>{{book.ISBN}}</td>
+            <td> {{book.category}} </td>
+            <td> {{book.price}} </td>
+            <td> {{book.qty}} </td>
+          </tr>
+          {% set t.sum =t.sum + book.price*book.qty %}
+        {%endfor%}
+      </tbody>
+    </table>
+    <hr><hr>
+  <div class = "container">
+    <form method="post" action='{{url_for("auth.checkout",total=t.sum+t.sum*0.05,cart=user.cart)}}' >
+      <p>Items Total: {{"$%.2f"|format(t.sum)}}</p>
+      <p>Estimated tax:  {{"$%.2f"|format(t.sum*0.05)}}</p>
+      <p><b>Order total:  {{"$%.2f"|format(t.sum+t.sum*0.05)}}</b> </p>
+      <input type='submit' value='Submit' class='btn btn-primary'>
+  </form>
+  </div>
+</div>
+{% endblock %}

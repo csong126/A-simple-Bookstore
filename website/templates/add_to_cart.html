@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block title %}Edit Student record{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+    <h4 class='text-center text-muted mb-3'>Add Book to Cart</h4>
+  <div class='row'>
+    <div class='col-5 mx-auto'>
+      <h3>Add Book to Cart</h3><hr>
+      <form method='post' action='{{url_for("auth.add_to_cart",ISBN=book.ISBN)}}'>
+        <p>Title: {{book.bname}} </p>
+        <p>Authors: {{book.authors}} </p>
+        <p>ISBN: {{book.ISBN}} </p>
+        <p>Price: {{book.price}} </p>
+        <div class='form-group'>
+          <label>Enter quantity</label>
+          <input type='integer' name='qty'  required class='form-control' required class='form-control' value='1'>
+        </div>
+        <input type='submit' value='Submit' class='btn btn-primary'>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

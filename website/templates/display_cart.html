@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %}Shopping cart{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+    <h4 class='text-center text-muted mb-3'>Your Cart</h4>
+  <div class='row'>
+    <table class='table table-bordered'>
+      <thead>
+        <th>Book Title</Title></th>
+        <th>Authors</th>
+        <th>ISBN</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>qty</th>
+     
+        <th>Delete</th>
+      </thead>
+      <tbody>
+        {% set t = namespace(sum = 0) %}
+        {% for book in user.cart %}
+          <tr>
+            <td>{{book.bname}}</td>
+            <td>{{book.authors}}</td>
+            <td>{{book.ISBN}}</td>
+            <td> {{book.category}} </td>
+            <td> {{book.price}} </td>
+            <td> {{book.qty}} </td>
+            
+           <td><a href='{{url_for("views.delete_from_cart",ISBN=book.ISBN)}}' class='btn btn-primary' onclick='return confirm("Are You Sure? ")'>Delete</a> </td> 
+          </tr>
+          {% set t.sum =t.sum + book.price*book.qty %}
+        {%endfor%}
+      </tbody>
+    </table>
+    <p>Cart Total: {{"$%.2f"|format(t.sum)}}</p><br>
+    <hr>
+    <div>
+      <a href='{{url_for("auth.checkout",total=t.sum)}}' class='btn btn-primary' '>Checkout</a> 
+    </div>
+    
+</div>
+{% endblock %}

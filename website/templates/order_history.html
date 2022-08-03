@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block title %}Order history{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+    <h4 class='text-center text-muted mb-3'>Your order history</h4>
+    <hr>
+  <div class='row'>
+    {% set order = namespace(n = 1) %}
+    {% for row in user.order %}
+      {% if order.n != row.onumb %}
+        {% set order.n = row.onumb %}
+        <p> <b> Order # {{row.onumb}}: </b> </p>
+        <p> &nbsp;Order placed on: {{row.date}}.  Order total: {{"$%.2f"|format(row.order_total)}}  </p> 
+      {% endif %}
+      <div  class="container">
+        <p><b>Title: </b> {{row.bname}}.&nbsp;
+          <b>Authors: </b> {{row.authors}}.&nbsp;
+          <b>ISBN:</b> {{row.ISBN}}.&nbsp;
+          <b>Price: </b> {{"$%.2f"|format(row.price)}}.&nbsp;
+          <b>Quantity: </b> {{row.qty}}.
+        </p>
+    </div>
+      <hr>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}
