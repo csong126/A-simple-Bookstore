@@ -2,15 +2,23 @@
 
 {% block content  %}
 <div class="jumbotron">
-    <h4 class='text-center text-muted mb-3'>Your order history</h4>
+    <h4 class='text-center text-muted mb-3'>Order history</h4>
     <hr>
   <div class='row'>
     {% set order = namespace(n = 1) %}
-    {% for row in user.order %}
+    {% set name = namespace(first = "first") %}
+    {% set name = namespace(last = "last") %}
+    {% for row in orders %}
       {% if order.n != row.onumb %}
         {% set order.n = row.onumb %}
+        {% for user in users %}
+          {% if user.id == row.user_id %}
+            {% set name.first = user.first_name %}
+            {% set name.last = user.last_name %}
+           {% endif %}
+        {% endfor %}
         <p> <b> Order # {{row.onumb}}: </b> </p>
-        <p> &nbsp;Order placed on: {{row.date}}.  Order total: {{"$%.2f"|format(row.order_total)}}  </p> 
+        <p> &nbsp;Order placed on: {{row.date}}.  Order total: {{"$%.2f"|format(row.order_total)}}.  Placed by user #{{row.user_id}}, {{name.first}} {{name.last}}. </p>
       {% endif %}
       <div  class="container">
         <p><b>Title: </b> {{row.bname}}.&nbsp;
@@ -19,7 +27,7 @@
           <b>Price: </b> {{"$%.2f"|format(row.price)}}.&nbsp;
           <b>Quantity: </b> {{row.qty}}.
         </p>
-    </div>
+      </div>
       <hr>
     {% endfor %}
   </div>

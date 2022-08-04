@@ -1,7 +1,7 @@
 from unicodedata import category
 from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Book,Cart, Order,Note
+from .models import Book,Cart, Order,Note,User
 from sqlalchemy import delete
 from . import db
 import json
@@ -60,9 +60,10 @@ def delete_from_cart():
 def order_history():
     if current_user.role=='manager':
         orders = Order.query.all()
-        return render_template("order_history.html", user=current_user, order = orders)
+        users=User.query.all()
+        return render_template("order_history.html", user=current_user, users=users,orders = orders)
     else:
-        return render_template("order_history.html", user=current_user, order = current_user.order)
+        return render_template("order_history.html", user=current_user, orders = current_user.order)
 
 @views.route('/manager_acc', methods=['GET', 'POST'])
 @login_required
