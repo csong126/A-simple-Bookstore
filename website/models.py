@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(20))
     cart = db.relationship('Cart')
     order = db.relationship('Order')
+    notes = db.relationship('Note')
 
 class Cart(db.Model):
     cid=db.Column(db.Integer,primary_key=True)

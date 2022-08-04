@@ -1,8 +1,8 @@
-function deleteBook(ISBN) {
-  fetch("/delete_from_cart", {
+function deleteNote(noteId) {
+  fetch("/delete-note", {
     method: "POST",
-    body: JSON.stringify({ ISBN: ISBN }),
+    body: JSON.stringify({ noteId: noteId }),
   }).then((_res) => {
-    window.location.href = "/";
+    window.location.href = "/manager_acc";
   });
 }

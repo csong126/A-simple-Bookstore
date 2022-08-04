@@ -6,19 +6,19 @@
 
   <h1 align="center"> Wellcome to UAB Bookstore Manager Page</h1>
 
-
-  <h4 align="center">Notes</h4>
+<div class="container">
+  <h4 align="center">Order notification</h4>
   <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item">
-      {{ note.data }}
+      <p> A new order (#{{ note.order_number }} ) is placed! </p>
       <button type="button" class="close" onClick="deleteNote({{ note.id }})">
         <span aria-hidden="true">&times;</span>
       </button>
     </li>
     {% endfor %}
   </ul>
-
+</div>
   <p>Add books to the store</p>
   <form method="post" action="{{url_for('auth.add_book')}}" class='text-center' >
     <label for="bname"></label><input type="text" name ="bname" placeholder="Book Title">

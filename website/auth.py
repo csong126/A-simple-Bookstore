@@ -20,11 +20,10 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
-                manager_account=['manager1@gmail.com','manager2@gmail.com']
-                if email in manager_account:
+                if user.role=="manager":
                     print("Manager",email, 'logged in.')
                     return redirect(url_for('views.manager_acc'))
-                print("non-manger logged in.")
+                print("a non-manger customer logged in.")
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again.', category='error')
@@ -44,6 +43,8 @@ def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
+        last_name=request.form.get('lastname')
+        role=request.form.get('role')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
 
@@ -59,7 +60,7 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(
+            new_user = User(email=email, first_name=first_name, last_name=last_name, role=role,password=generate_password_hash(
                 password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
@@ -179,7 +180,8 @@ def checkout(total):
         for manager in managers:
             note = Note(order_number= order_numb,user_id=manager.id)
             db.session.add(note)
-
+            db.session.commit()
+            print("note added to manager",manager,manager.email)
         flash('Order completed','success')
         return render_template("thankyou.html",user=current_user)
     return render_template("checkout.html", user=current_user)
