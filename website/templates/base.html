@@ -59,20 +59,26 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          {% if user.is_authenticated and user.role == 'manager' %}
-          <a class="nav-item nav-link float-right" id="manager" href="/manager_acc">Store management</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% elif user.is_authenticated and user.role != 'manager' %}
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% else %}
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          {% endif %}
-        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+          <div class="navbar-nav">
+            {% if user.is_authenticated and user.role == 'manager' %}
+            <a class="nav-item nav-link float-right" id="manager" href="/manager_acc">Store management</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            <a class="nav-item nav-link" id="aboutus" href="/aboutus">About us</a> 
+            {% elif user.is_authenticated and user.role != 'manager' %}
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            <a class="nav-item nav-link" id="aboutus" href="/aboutus">About us</a> 
+            {% else %}
+            <a class="nav-item nav-link" id="login" href="/login">Login</a>
+            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+            <a class="nav-item nav-link" id="aboutus" href="/aboutus">About us</a> 
+            {% endif %}
+            
+          </div>
+        
       </div>
+      
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
