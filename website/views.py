@@ -63,7 +63,7 @@ def order_history():
         users=User.query.all()
         return render_template("order_history.html", user=current_user, users=users,orders = orders)
     else:
-        return render_template("order_history.html", user=current_user, orders = current_user.order)
+        return render_template("order_history.html", user=current_user, users=current_user,orders = current_user.order)
 
 @views.route('/manager_acc', methods=['GET', 'POST'])
 @login_required
