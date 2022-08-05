@@ -4,10 +4,10 @@
 
   <a href='{{url_for("views.order_history")}}'  class='btn btn-outline-dark float-right' >See Orders</a>
 
-  <h1 align="center"> Wellcome to UAB Bookstore Manager Page</h1>
+  <h2 align="center"> Wellcome to UAB Bookstore Manager Page</h2>
 
 <div class="container">
-  <h4 align="center">Order notification</h4>
+  <h4 align="left">Order notification</h4>
   <ul class="list-group list-group-flush" id="notes">
     {% for note in user.notes %}
     <li class="list-group-item">
@@ -19,7 +19,8 @@
     {% endfor %}
   </ul>
 </div>
-  <p>Add books to the store</p>
+<div class="container">
+  <h4>Add books to the store</h4>
   <form method="post" action="{{url_for('auth.add_book')}}" class='text-center' >
     <label for="bname"></label><input type="text" name ="bname" placeholder="Book Title">
     <label for="authors" ></label> <input type="text" name ="authors" placeholder="Authors">
@@ -30,8 +31,8 @@
     <input type="submit" class='btn btn-success' value="+Add">
   </form>
   <br><br>
-  <h4 class='text-center text-muted mb-3'>Book List</h4>
-
+  <h3 class='text-center '>Book List</h3>
+</div>
   <div class="dropdown">
     <button class="dropbtn">Select a category</button>
     <div class="dropdown-content">
