@@ -3,8 +3,10 @@ from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from .models import Book,Cart, Order,Note,User
 from sqlalchemy import delete
+from sqlalchemy.sql import func
 from . import db
 import json
+
 
 views = Blueprint('views', __name__)
 
@@ -12,7 +14,8 @@ views = Blueprint('views', __name__)
 @login_required
 def home():
     bklist = db.session.query(Book).all()
-    return render_template("home.html", user=current_user, bklist=bklist)
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    return render_template("home.html", user=current_user, bklist=bklist,date=date)
 
 @views.route('/show_books/<string:choice>', methods=['GET'])
 @login_required
@@ -64,6 +67,12 @@ def order_history():
         return render_template("order_history.html", user=current_user, users=users,orders = orders)
     else:
         return render_template("order_history.html", user=current_user, users=current_user,orders = current_user.order)
+
+@views.route('/user_profile', methods=['GET'])
+@login_required
+def user_profile():
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    return render_template("user_profile.html", user=current_user,date=date)
 
 @views.route('/manager_acc', methods=['GET', 'POST'])
 @login_required

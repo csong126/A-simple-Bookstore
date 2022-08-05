@@ -69,10 +69,12 @@
             <a class="nav-item nav-link float-right" id="manager" href="/manager_acc">Store management</a>
             <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
             <a class="nav-item nav-link" id="aboutus" href="/aboutus">About us</a> 
+            <p>User profile</p>
             {% elif user.is_authenticated and user.role != 'manager' %}
             <a class="nav-item nav-link" id="home" href="/">Home</a>
             <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
             <a class="nav-item nav-link" id="aboutus" href="/aboutus">About us</a> 
+            <p>User profile</p>
             {% else %}
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
@@ -84,7 +86,7 @@
       </div>
       
     </nav>
-
+    
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %} {% for category, message in messages %} {% if category ==
     'error' %}

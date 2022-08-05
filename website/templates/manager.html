@@ -1,5 +1,9 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 {% block content%}
+
+<a href='{{url_for("views.user_profile")}}'  class='btn btn-outline-dark float-left' >User Profile </a>
+
+
 <div class="jumbotron">
 
   <a href='{{url_for("views.order_history")}}'  class='btn btn-outline-dark float-right' >See Orders</a>

@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %}
 {% block content%}
+<a href='{{url_for("views.user_profile")}}'  class='btn btn-outline-dark float-left' >User Profile </a>
+
 <div class="jumbotron">
   {% set len = namespace(n_book =0) %}
   {% set t = namespace(sum =0) %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}User Profile{% endblock %}
+
+{% block content  %}
+<div class="jumbotron">
+    <h4 class='text-center text-muted mb-3'>User Profile</h4>
+    <hr>
+    <h3>Hello, {{user.first_name}}! </h3><hr>
+      
+    <p><b>First name:</b>&nbsp; {{user.first_name}}</p>
+    <p><b>Last name:</b>&nbsp; {{user.last_name}}</p>
+    <p><b>Email address:</b>&nbsp; {{user.email}}</p>
+    <p><b>Role:</b>&nbsp; {{user.role}}</p>
+    <p><b>Account created:</b>&nbsp; {{user.date.date()}}</p>
+
+</div>
+{% endblock %}

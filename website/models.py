@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20))
     first_name = db.Column(db.String(20))
     last_name = db.Column(db.String(20))
+    date = db.Column(db.DateTime(timezone=False), default=func.now())
     role = db.Column(db.String(20))
     cart = db.relationship('Cart')
     order = db.relationship('Order')

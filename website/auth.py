@@ -10,6 +10,27 @@ from flask_login import login_user, login_required, logout_user, current_user
 
 auth = Blueprint('auth', __name__)
 
+def add_manager():
+    # create manager accounts
+    manager = User(
+        email ='manager@uab.edu',
+        password = generate_password_hash('1234567', method='sha256'),
+        first_name = 'Tim',
+        last_name='Brown',
+        role ='manager')
+    manager1 = User(
+        email ='manager1@uab.edu', 
+        password =generate_password_hash('1234567', method='sha256'),
+        first_name = 'Alex',
+        last_name='Johnston',
+        role ='manager')
+    db.session.add(manager)
+    db.session.add(manager1)
+    db.session.commit()
+    print("Manager accounts, manger@uab.edu and manager1@uab.edu created!")
+
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -44,10 +65,7 @@ def sign_up():
         email = request.form.get('email')
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastname')
-        role=request.form.get('role')
-        print("role len",len(role))
-        if len(role)<1:
-            role ="customer"
+        role ="customer"
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         print("first name:",first_name,"last name:",last_name,'password1',password1,"role",role)
@@ -69,6 +87,9 @@ def sign_up():
                 password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
+            m_accounts = User.query.filter_by(role='manager').all()
+            if len(m_accounts)<1:
+                add_manager()
             login_user(new_user, remember=True)
             if role=="manager":
                 print("Manager",email, 'signed up.')
@@ -78,11 +99,8 @@ def sign_up():
                 print("A new customer signed up.")
                 flash('customer account created!', category='success')
                 return redirect(url_for('views.home'))
-                
-           
 
     return render_template("sign_up.html", user=current_user)
-
 
 @auth.route("/add_book",methods=['POST','GET'])
 @login_required
