@@ -1,4 +1,4 @@
-# CS621 Final Project - Bookstore
+#Simple Bookstore
 
 ## Environment
 
